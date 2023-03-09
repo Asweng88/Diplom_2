@@ -3,13 +3,13 @@ package api;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import url.ApiUserRegister;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
 
-public class TestPositiveCreateUser {
+public class TestPositiveLoginUser {
 
     private final ApiUserRegister api = new ApiUserRegister();
 
@@ -18,17 +18,25 @@ public class TestPositiveCreateUser {
     private String name = "clubber";
     private String token;
 
-    @Test
-    public void validCreateUser() {
+    @Before
+    public void createUser(){
 
         ValidatableResponse response = api.createUser(mail, password, name);
+        int statusCode = response.extract().statusCode();
+        assertEquals("Пользователь не создан", statusCode, HttpStatus.SC_OK);
+    }
+
+    @Test
+    public void validLoginUser() {
+
+        ValidatableResponse response = api.loginUser(mail, password);
         int statusCode = response.extract().statusCode();
         Boolean success = response.extract().path("success");
         token = response.extract().path("accessToken");
         String refreshToken = response.extract().path("refreshToken");
         String responseEmail = response.extract().path("user.email");
         String responseName = response.extract().path("user.name");
-        assertEquals("Пользователь не создан", statusCode, HttpStatus.SC_OK);
+        assertEquals("Пользователь не залогинился", statusCode, HttpStatus.SC_OK);
         assertTrue("Ошибка валидации success", success);
         assertNotNull("Token не должен быть равен null", token);
         assertNotNull("RefreshToken не должен быть равен null", refreshToken);
@@ -40,7 +48,6 @@ public class TestPositiveCreateUser {
 
     @After
     public void deleteUser() {
-
         ValidatableResponse response = api.deleteUser(token);
         int statusCode = response.extract().statusCode();
         assertEquals("Ошибка удаления пользователя", statusCode, HttpStatus.SC_ACCEPTED);

@@ -25,4 +25,16 @@ public class ApiUserRegister extends BaseHttp {
         return response;
     }
 
+    public ValidatableResponse patchUser(String mail, String password, String name, String accessToken){
+        User user = new User(mail,password,name);
+        ValidatableResponse response = doPatchRequest(baseUrl + "api/auth/user",accessToken, user);
+        return response;
+    }
+
+    public ValidatableResponse patchUser(String mail, String password, String name){
+        User user = new User(mail,password,name);
+        ValidatableResponse response = doPatchRequest(baseUrl + "api/auth/user", user);
+        return response;
+    }
+
 }

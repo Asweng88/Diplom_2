@@ -6,18 +6,27 @@ import model.Orders;
 
 public class ApiOrders extends BaseHttp {
 
-    private final String baseUrl = "https://qa-scooter.praktikum-services.ru/";
+    private final String baseUrl = "https://stellarburgers.nomoreparties.site/";
 
-    public ValidatableResponse createOrders(String firstName, String lastName, String address, String metroStation, String phone, Number rentTime, String deliveryDate, String comment, Object[] color){
-        Orders orders = new Orders(firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color);
-        ValidatableResponse response = doPostRequest(baseUrl + "api/v1/orders", orders);
+    public ValidatableResponse createOrdersAuthorization(Object[] ingredient, String accessToken){
+        Orders orders = new Orders(ingredient);
+        ValidatableResponse response = doPostRequestAuthorization(baseUrl + "api/orders", orders, accessToken);
         return response;
     }
 
-    public ValidatableResponse getOrders(){
-        ValidatableResponse response = doGetRequest(baseUrl + "api/v1/orders");
+    public ValidatableResponse createOrdersNoAuthorization(Object[] ingredient){
+        Orders orders = new Orders(ingredient);
+        ValidatableResponse response = doPostRequestNoAuthorization(baseUrl + "api/orders", orders);
         return response;
     }
 
+    public ValidatableResponse getOrdersAuthorization(String accessToken){
+        ValidatableResponse response = doGetRequestAuthorization(baseUrl + "api/orders", accessToken);
+        return response;
+    }
 
+    public ValidatableResponse getOrdersNoAuthorization(){
+        ValidatableResponse response = doGetRequest(baseUrl + "api/orders");
+        return response;
+    }
 }
