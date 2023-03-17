@@ -13,9 +13,9 @@ public class TestNegativeDoubleCreateUser {
 
     private final ApiUserRegister api = new ApiUserRegister();
 
-    private String mail = RandomStringUtils.random(10) + "@mail.ru";;
-    private String password = RandomStringUtils.random(10);
-    private String name = RandomStringUtils.random(10);
+    private String mail = RandomStringUtils.randomAlphabetic(10) + "@mail.ru";;
+    private String password = RandomStringUtils.randomAlphabetic(10);
+    private String name = RandomStringUtils.randomAlphabetic(10);
     private String token;
     @Test
     public void doubleCreateUser(){

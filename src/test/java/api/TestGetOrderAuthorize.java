@@ -15,9 +15,9 @@ import static org.junit.Assert.*;
 public class TestGetOrderAuthorize {
 
     //Добавь необходимые поля
-    private String mail = RandomStringUtils.random(10) + "@mail.ru";;
-    private String password = RandomStringUtils.random(10);
-    private String name = RandomStringUtils.random(10);
+    private String mail = RandomStringUtils.randomAlphabetic(10) + "@mail.ru";;
+    private String password = RandomStringUtils.randomAlphabetic(10);
+    private String name = RandomStringUtils.randomAlphabetic(10);
     private String token;
 
     private ApiUserRegister api = new ApiUserRegister();
