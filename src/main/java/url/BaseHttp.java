@@ -1,77 +1,77 @@
 package url;
 
-
-import io.restassured.mapper.ObjectMapper;
 import io.restassured.response.ValidatableResponse;
 
 import static io.restassured.RestAssured.given;
 
 public class BaseHttp {
 
+    private final String baseUrl = "https://stellarburgers.nomoreparties.site/";
+
     private final String JSON = "application/json";
 
-    protected ValidatableResponse doGetRequest(String uri){
+    protected ValidatableResponse doGetRequest(String uri) {
         return given()
                 .header("Content-Type", JSON)
-                .get(uri)
+                .get(baseUrl + uri)
                 .then();
     }
 
-    protected ValidatableResponse doGetRequestAuthorization(String uri, String accessToken){
+    protected ValidatableResponse doGetRequestAuthorization(String uri, String accessToken) {
         return given()
                 .header("Content-Type", JSON)
                 .header("authorization", accessToken)
-                .get(uri)
+                .get(baseUrl + uri)
                 .then();
     }
 
-    protected ValidatableResponse doPostRequest(String uri, Object body){
+    protected ValidatableResponse doPostRequest(String uri, Object body) {
         return given()
                 .header("Content-Type", JSON)
                 .body(body)
-                .post(uri)
+                .post(baseUrl + uri)
                 .then();
     }
 
-    protected ValidatableResponse doDeleteRequest(String uri, String accessToken){
+    protected ValidatableResponse doDeleteRequest(String uri, String accessToken) {
         return given()
                 .header("Content-Type", JSON)
                 .header("authorization", accessToken)
-                .delete(uri)
+                .delete(baseUrl + uri)
                 .then();
     }
 
-    protected ValidatableResponse doPatchRequest(String uri, String accessToken, Object body){
+    protected ValidatableResponse doPatchRequest(String uri, String accessToken, Object body) {
         return given()
                 .header("Content-Type", JSON)
                 .header("authorization", accessToken)
                 .body(body)
-                .patch(uri)
+                .patch(baseUrl + uri)
                 .then();
     }
 
-    protected ValidatableResponse doPatchRequest(String uri, Object body){
+    protected ValidatableResponse doPatchRequest(String uri, Object body) {
         return given()
                 .header("Content-Type", JSON)
                 .body(body)
-                .patch(uri)
+                .patch(baseUrl + uri)
                 .then();
     }
 
-    protected ValidatableResponse doPostRequestAuthorization(String uri, Object body, String accessToken){
+    protected ValidatableResponse doPostRequestAuthorization(String uri, Object body, String accessToken) {
         return given()
                 .header("Content-Type", JSON)
                 .header("authorization", accessToken)
-                .body( body)
-                .post(uri)
+                .body(body)
+                .post(baseUrl + uri)
                 .then();
     }
 
-    protected ValidatableResponse doPostRequestNoAuthorization(String uri, Object body){
+    protected ValidatableResponse doPostRequestNoAuthorization(String uri, Object body) {
         return given()
                 .header("Content-Type", JSON)
-                .body( body)
-                .post(uri)
+                .body(body)
+                .post(baseUrl + uri)
                 .then();
     }
 }

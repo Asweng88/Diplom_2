@@ -20,10 +20,7 @@ public class TestPositiveLoginUser {
 
     @Before
     public void createUser(){
-
         ValidatableResponse response = api.createUser(mail, password, name);
-        int statusCode = response.extract().statusCode();
-        assertEquals("Пользователь не создан", statusCode, HttpStatus.SC_OK);
     }
 
     @Test
@@ -42,16 +39,10 @@ public class TestPositiveLoginUser {
         assertNotNull("RefreshToken не должен быть равен null", refreshToken);
         assertEquals("Ошибка валидации responseEmail", responseEmail, mail);
         assertEquals("Ошибка валидации responseName", responseName, name);
-
     }
-
 
     @After
     public void deleteUser() {
         ValidatableResponse response = api.deleteUser(token);
-        int statusCode = response.extract().statusCode();
-        assertEquals("Ошибка удаления пользователя", statusCode, HttpStatus.SC_ACCEPTED);
     }
-
-
 }

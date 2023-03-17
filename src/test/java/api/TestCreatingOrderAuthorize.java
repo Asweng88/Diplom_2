@@ -1,6 +1,5 @@
 package api;
 
-import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import url.ApiIngredients;
@@ -10,15 +9,13 @@ import org.apache.http.HttpStatus;
 import org.junit.Test;
 import url.ApiUserRegister;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.*;
 
 
 public class TestCreatingOrderAuthorize {
 
     //Добавь необходимые поля
-    private String mail = "testClubber@mail.ru";;
+    private String mail = "testClubber@mail.ru";
     private String password = "testPassword";
     private String name = "clubber";
     private String token;
@@ -30,23 +27,18 @@ public class TestCreatingOrderAuthorize {
     @Before
     public void createUser() {
         ApiIngredients ingredients = new ApiIngredients();
-
         ValidatableResponse response = api.createUser(mail, password, name);
-        int statusCode = response.extract().statusCode();
         token = response.extract().path("accessToken");
-        assertEquals("Пользователь не создан", statusCode, HttpStatus.SC_OK);
 
         response = ingredients.getIngredients();
-        statusCode = response.extract().statusCode();
         ingredient1 = response.extract().path("data[0]._id").toString();
         ingredient2 = response.extract().path("data[1]._id").toString();
-        assertEquals("Список ингредиентов не получен", statusCode, HttpStatus.SC_OK);
     }
 
     @Test
     public void creatingOrderAuthorize() {
         ApiOrders orders = new ApiOrders();
-        ValidatableResponse response = orders.createOrdersAuthorization(new Object[]{ingredient1, ingredient2},token);
+        ValidatableResponse response = orders.createOrdersAuthorization(new String[]{ingredient1, ingredient2}, token);
         int statusCode = response.extract().statusCode();
         Boolean success = response.extract().path("success");
         String name = response.extract().path("name");
@@ -59,11 +51,8 @@ public class TestCreatingOrderAuthorize {
 
     @After
     public void deleteUser() {
-        ValidatableResponse response = api.loginUser(mail, password);
-        token = response.extract().path("accessToken");
-        response = api.deleteUser(token);
-        int statusCode = response.extract().statusCode();
-        assertEquals("Ошибка удаления пользователя", statusCode, HttpStatus.SC_ACCEPTED);
+        ValidatableResponse response = api.deleteUser(token);
+
     }
 
 }

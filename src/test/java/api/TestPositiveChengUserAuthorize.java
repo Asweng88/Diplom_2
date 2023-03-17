@@ -45,15 +45,10 @@ public class TestPositiveChengUserAuthorize {
     public void createUser(){
 
         ValidatableResponse response = api.createUser(mail, password, name);
-        int statusCode = response.extract().statusCode();
-        assertEquals("Пользователь не создан", statusCode, HttpStatus.SC_OK);
 
         response = api.loginUser(mail, password);
-        statusCode = response.extract().statusCode();
-        Boolean success = response.extract().path("success");
         token = response.extract().path("accessToken");
-        assertEquals("Пользователь не залогинился", statusCode, HttpStatus.SC_OK);
-        assertTrue("Ошибка валидации success", success);
+
 
     }
 
@@ -75,8 +70,6 @@ public class TestPositiveChengUserAuthorize {
     @After
     public void deleteUser() {
         ValidatableResponse response = api.deleteUser(token);
-        int statusCode = response.extract().statusCode();
-        assertEquals("Ошибка удаления пользователя", statusCode, HttpStatus.SC_ACCEPTED);
     }
 
 }

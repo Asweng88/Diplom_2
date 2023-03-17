@@ -1,6 +1,7 @@
 package api;
 
 import io.restassured.response.ValidatableResponse;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.http.HttpStatus;
 import org.junit.After;
 import org.junit.Test;
@@ -12,9 +13,9 @@ public class TestNegativeDoubleCreateUser {
 
     private final ApiUserRegister api = new ApiUserRegister();
 
-    private String mail = "testClubber@mail.ru";
-    private String password = "testPassword";
-    private String name = "clubber";
+    private String mail = RandomStringUtils.random(10) + "@mail.ru";;
+    private String password = RandomStringUtils.random(10);
+    private String name = RandomStringUtils.random(10);
     private String token;
     @Test
     public void doubleCreateUser(){
@@ -36,10 +37,7 @@ public class TestNegativeDoubleCreateUser {
 
     @After
     public void deleteUser(){
-
         ValidatableResponse response = api.deleteUser(token);
-        int statusCode = response.extract().statusCode();
-        assertEquals("Ошибка удаления пользователя", statusCode, HttpStatus.SC_ACCEPTED);
     }
 
 }

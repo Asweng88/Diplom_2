@@ -8,7 +8,6 @@ import url.ApiUserRegister;
 
 import static org.junit.Assert.*;
 
-
 public class TestGetOrderNoAuthorize {
 
     //Добавь необходимые поля

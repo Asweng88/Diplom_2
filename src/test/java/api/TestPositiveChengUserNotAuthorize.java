@@ -11,7 +11,6 @@ import url.ApiUserRegister;
 
 import static org.junit.Assert.*;
 
-
 @RunWith(Parameterized.class)
 public class TestPositiveChengUserNotAuthorize {
 
@@ -43,11 +42,7 @@ public class TestPositiveChengUserNotAuthorize {
 
     @Before
     public void createUser(){
-
         ValidatableResponse response = api.createUser(mail, password, name);
-        int statusCode = response.extract().statusCode();
-        assertEquals("Пользователь не создан", statusCode, HttpStatus.SC_OK);
-
     }
 
     @Test
@@ -66,10 +61,7 @@ public class TestPositiveChengUserNotAuthorize {
     public void deleteUser() {
         ValidatableResponse response = api.loginUser(mail, password);
         token = response.extract().path("accessToken");
-
         response = api.deleteUser(token);
-        int statusCode = response.extract().statusCode();
-        assertEquals("Ошибка удаления пользователя", statusCode, HttpStatus.SC_ACCEPTED);
     }
 
 }

@@ -1,6 +1,5 @@
 package api;
 
-
 import io.restassured.response.ValidatableResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +36,6 @@ public class TestNegativeRequiredFieldsCreateUser {
                     {"testClubber@mail.ru", "testPassword", null, 403, "Email, password and name are required fields"},
             };
         }
-
 
     private final ApiUserRegister api = new ApiUserRegister();
 

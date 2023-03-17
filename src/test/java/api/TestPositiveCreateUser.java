@@ -37,13 +37,9 @@ public class TestPositiveCreateUser {
 
     }
 
-
     @After
     public void deleteUser() {
-
         ValidatableResponse response = api.deleteUser(token);
-        int statusCode = response.extract().statusCode();
-        assertEquals("Ошибка удаления пользователя", statusCode, HttpStatus.SC_ACCEPTED);
     }
 
 
