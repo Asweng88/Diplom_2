@@ -1,13 +1,8 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Orders {
 
     private Object[] ingredients;
-
-
 
     public Orders(Object[] ingredients){
         this.ingredients=ingredients;

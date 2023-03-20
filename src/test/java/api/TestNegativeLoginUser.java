@@ -13,18 +13,21 @@ import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
 public class TestNegativeLoginUser {
     //Добавь необходимые поля
-    private final String mailFirst;
-    private final String mailSecond = "testClubber@mail.ru";
-    private final String passwordFirst;
-    private final String passwordSecond = "testPassword";
+    private final String existingMail = "testClubber@mail.ru";
+    private final String existingPassword = "testPassword";
+
+    private final String verifiableMail;
+    private final String verifiablePassword;
+
     private final String name = "clubber";
+
     private final int code;
     private final String messages;
     private String token;
 
     public TestNegativeLoginUser(String mail, String password, int code, String messages) {
-        this.mailFirst = mail;
-        this.passwordFirst = password;
+        this.verifiableMail = mail;
+        this.verifiablePassword = password;
 
         this.code = code;
         this.messages = messages;
@@ -45,13 +48,13 @@ public class TestNegativeLoginUser {
 
     @Before
     public void createUser() {
-        ValidatableResponse response = api.createUser(mailSecond, passwordSecond, name);
+        ValidatableResponse response = api.createUser(existingMail, existingPassword, name);
         token = response.extract().path("accessToken");
     }
 
     @Test
     public void requiredFieldsLoginUser() {
-        ValidatableResponse response = api.loginUser(mailFirst, passwordFirst);
+        ValidatableResponse response = api.loginUser(verifiableMail, verifiablePassword);
         int statusCode = response.extract().statusCode();
         Boolean success = response.extract().path("success");
         String body = response.extract().path("message");

@@ -11,7 +11,6 @@ import static org.junit.Assert.*;
 public class TestGetOrderNoAuthorize {
 
     //Добавь необходимые поля
-
     private ApiUserRegister api = new ApiUserRegister();
 
     @Test

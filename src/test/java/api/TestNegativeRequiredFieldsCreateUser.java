@@ -1,6 +1,7 @@
 package api;
 
 import io.restassured.response.ValidatableResponse;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -49,6 +50,9 @@ public class TestNegativeRequiredFieldsCreateUser {
         assertEquals("Ошибка валидации", statusCode, code);
         assertEquals("Ошибка валидации", body, messages);
         assertFalse("Ошибка валидации", success);
+        if (statusCode==200){
+            String token = response.extract().path("accessToken");
+            response = api.deleteUser(token);
+        }
     }
-
 }

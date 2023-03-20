@@ -1,5 +1,6 @@
 package api;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;
 import io.restassured.response.ValidatableResponse;
@@ -34,15 +35,15 @@ public class TestPositiveChengUserAuthorize {
     @Parameterized.Parameters
     public static Object[][] getCreateUser() {
         //Сгенерируй тестовые данные
-        return new Object[][] {
-                {"testclubber12223@mail.ru", "testPassword", "clubber"},
-                {"testclubber@mail.ru", "testPassword1", "clubber"},
-                {"testclubber@mail.ru", "testPassword", "clubber1"},
+        return new Object[][]{
+                {RandomStringUtils.randomAlphabetic(10) + "@mail.ru", "testPassword", "clubber"},
+                {"testclubber@mail.ru", RandomStringUtils.randomAlphabetic(10), "clubber"},
+                {"testclubber@mail.ru", "testPassword", RandomStringUtils.randomAlphabetic(10)},
         };
     }
 
     @Before
-    public void createUser(){
+    public void createUser() {
 
         ValidatableResponse response = api.createUser(mail, password, name);
 
@@ -55,14 +56,14 @@ public class TestPositiveChengUserAuthorize {
     @Test
     public void validChengUser() {
 
-        ValidatableResponse response = api.patchUser(mailCheng,passwordCheng,nameCheng,token);
+        ValidatableResponse response = api.patchUser(mailCheng, passwordCheng, nameCheng, token);
         int statusCode = response.extract().statusCode();
         Boolean success = response.extract().path("success");
         String responseEmail = response.extract().path("user.email").toString();
         String responseName = response.extract().path("user.name").toString();
         assertEquals("Пользователь не залогинился", statusCode, HttpStatus.SC_OK);
         assertTrue("Ошибка валидации success", success);
-        assertEquals("Ошибка валидации responseEmail", responseEmail, mailCheng);
+        assertEquals("Ошибка валидации responseEmail", responseEmail, mailCheng.toLowerCase());
         assertEquals("Ошибка валидации responseName", responseName, nameCheng);
 
     }

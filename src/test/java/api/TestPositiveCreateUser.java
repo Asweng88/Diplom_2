@@ -37,6 +37,7 @@ public class TestPositiveCreateUser {
 
     }
 
+
     @After
     public void deleteUser() {
         ValidatableResponse response = api.deleteUser(token);
