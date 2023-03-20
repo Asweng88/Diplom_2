@@ -6,13 +6,13 @@ import static io.restassured.RestAssured.given;
 
 public class BaseHttp {
 
-    private static final String BASEURL = "https://stellarburgers.nomoreparties.site/";
+    private static final String BASE_URL = "https://stellarburgers.nomoreparties.site/";
     private static final String JSON = "application/json";
 
     protected ValidatableResponse doGetRequest(String uri) {
         return given()
                 .header("Content-Type", JSON)
-                .get(BASEURL + uri)
+                .get(BASE_URL + uri)
                 .then();
     }
 
@@ -20,7 +20,7 @@ public class BaseHttp {
         return given()
                 .header("Content-Type", JSON)
                 .header("authorization", accessToken)
-                .get(BASEURL + uri)
+                .get(BASE_URL + uri)
                 .then();
     }
 
@@ -28,7 +28,7 @@ public class BaseHttp {
         return given()
                 .header("Content-Type", JSON)
                 .body(body)
-                .post(BASEURL + uri)
+                .post(BASE_URL + uri)
                 .then();
     }
 
@@ -36,7 +36,7 @@ public class BaseHttp {
         return given()
                 .header("Content-Type", JSON)
                 .header("authorization", accessToken)
-                .delete(BASEURL + uri)
+                .delete(BASE_URL + uri)
                 .then();
     }
 
@@ -45,7 +45,7 @@ public class BaseHttp {
                 .header("Content-Type", JSON)
                 .header("authorization", accessToken)
                 .body(body)
-                .patch(BASEURL + uri)
+                .patch(BASE_URL + uri)
                 .then();
     }
 
@@ -53,7 +53,7 @@ public class BaseHttp {
         return given()
                 .header("Content-Type", JSON)
                 .body(body)
-                .patch(BASEURL + uri)
+                .patch(BASE_URL + uri)
                 .then();
     }
 
@@ -62,7 +62,7 @@ public class BaseHttp {
                 .header("Content-Type", JSON)
                 .header("authorization", accessToken)
                 .body(body)
-                .post(BASEURL + uri)
+                .post(BASE_URL + uri)
                 .then();
     }
 
@@ -70,7 +70,7 @@ public class BaseHttp {
         return given()
                 .header("Content-Type", JSON)
                 .body(body)
-                .post(BASEURL + uri)
+                .post(BASE_URL + uri)
                 .then();
     }
 }
